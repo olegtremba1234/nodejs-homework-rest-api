@@ -18,7 +18,7 @@ const getContactById = async (contactId) => {
   const contacts = await listContacts();
   const contact = contacts.find((contact) => contact.id === contactId);
   if (!contact) {
-    throw createHttpException(404, "Contact is not found!");
+    throw createHttpException(404, "Not found");
   }
   return contact;
 };
@@ -28,12 +28,10 @@ const removeContact = async (contactId) => {
 
   const index = contacts.findIndex((contact) => contact.id === contactId);
   if (index === -1) {
-    throw createHttpException(404, "Contact is not found!");
+    throw createHttpException(404, "Not found");
   }
   contacts.splice(index, 1);
   await updateContactsList(contacts);
-
-  return contacts[index];
 };
 
 const addContact = async ({ name, email, phone }) => {
@@ -50,19 +48,18 @@ const addContact = async ({ name, email, phone }) => {
   return newContact;
 };
 
-const updateContact = async (contactId, data) => {
+const updateContact = async (contactId, body) => {
   const contacts = await listContacts();
 
-  const contact = contacts.find((contact) => contact.id === contactId);
-  if (!contact) {
-    throw createHttpException(404, "Contact is not found!");
+  const index = contacts.findIndex((contact) => contact.id === contactId);
+  if (index === -1) {
+    throw createHttpException(404, "Not found");
   }
 
-  contacts[contact] = { contactId, ...data };
+  contacts[index] = { contactId, ...body };
   await updateContactsList(contacts);
 
-  console.log("this is index>>>>", contact);
-  return contacts[contact];
+  return contacts[index];
 };
 
 module.exports = {
