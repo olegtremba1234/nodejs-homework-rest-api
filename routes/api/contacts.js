@@ -2,7 +2,7 @@ const express = require("express");
 const contactsController = require("../../controllers");
 const { controllerExceptionWrapper } = require("../../helpers");
 const { validateBody } = require("../../middlewares/validateBody.middleware");
-const { addContactsSchema } = require("../../schemas/addContactSchema");
+const { addContactsSchema } = require("../../service/schemas/addContactSchema");
 
 const router = express.Router();
 
@@ -29,5 +29,7 @@ router.put(
   validateBody(addContactsSchema),
   controllerExceptionWrapper(contactsController.updateContact)
 );
+
+router.patch("/:contactId/favorite");
 
 module.exports = router;

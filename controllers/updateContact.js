@@ -1,16 +1,11 @@
-const contactsRepository = require("../models/contacts");
+const service = require("../service");
 
 const updateContact = async (req, res, next) => {
-  const { contactId } = req.body;
-  const { name, email, phone } = req.body;
-  const result = await contactsRepository.updateContact(contactId, {
-    name,
-    email,
-    phone,
-  });
-  res.json(result);
+  const contact = req.body;
+  const result = await service.updateContact(contact._id, contact);
+  return res.json(result);
 };
 
 module.exports = {
-    updateContact
-}
+  updateContact,
+};

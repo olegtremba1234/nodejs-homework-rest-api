@@ -11,6 +11,7 @@ const addContactsSchema = Joi.object({
       "string.pattern.base": `Phone number must have min. 10 and max. 15 digits.`,
     })
     .required(),
+  favorite: Joi.boolean,
 });
 
 module.exports = {

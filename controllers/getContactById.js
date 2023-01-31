@@ -1,8 +1,12 @@
-const contactsRepository = require("../models/contacts");
+const { createHttpException } = require("../helpers");
+const service = require("../service");
 
 const getContactById = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await contactsRepository.getContactById(contactId);
+  const result = await service.getContactById(contactId);
+  if (!result) {
+    throw createHttpException(404, `Not found contact by id:${contactId}`);
+  }
   res.json(result);
 };
 
