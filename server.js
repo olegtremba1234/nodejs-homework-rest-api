@@ -25,23 +25,25 @@ app.use((req, res) => {
 app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3000;
-const uriDb = process.env.DB_HOST;
+const uriDb =
+  "mongodb+srv://olegtremba:O5EuEsSUh4agZYQN@cluster0.3hp6npf.mongodb.net/db-contacts?retryWrites=true&w=majority;";
 
 mongoose.set("strictQuery", false);
-const connection = mongoose.connect(uriDb, {
-  promiseLibrary: global.Promise,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-connection
+mongoose
+  .connect(uriDb, {
+    promiseLibrary: global.Promise,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
+    console.log("Database connection successful");
     app.listen(PORT, function () {
       console.log(`Server running. Use our API on port: ${PORT}`);
     });
   })
-  .catch((err) =>
-    console.log(`Server not running. Error message: ${err.message}`)
-  );
+  .catch((err) => {
+    console.log(`Server not running. Error message: ${err.message}`);
+    process.exit(1);
+  });
 
 module.exports = app;
