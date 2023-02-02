@@ -3,6 +3,7 @@ const contactsController = require("../../controllers");
 const { controllerExceptionWrapper } = require("../../helpers");
 const { validateBody } = require("../../middlewares/validateBody.middleware");
 const { addContactsSchema } = require("../../service/schemas/addContactSchema");
+const { ContactsFavoriteSchema } = require("../../service/schemas/contactsFavoriteSchema.schema");
 
 const router = express.Router();
 
@@ -30,6 +31,10 @@ router.put(
   controllerExceptionWrapper(contactsController.updateContact)
 );
 
-router.patch("/:contactId/favorite");
+router.patch(
+  "/:contactId/favorite",
+  validateBody(ContactsFavoriteSchema),
+  controllerExceptionWrapper(contactsController.updateStatusContact)
+);
 
 module.exports = router;
