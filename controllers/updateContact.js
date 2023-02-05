@@ -1,16 +1,18 @@
-const contactsRepository = require("../models/contacts");
+const { createHttpException } = require("../helpers");
+const service = require("../service");
 
 const updateContact = async (req, res, next) => {
-  const { contactId } = req.body;
+  const { contactId } = req.params;
   const { name, email, phone } = req.body;
-  const result = await contactsRepository.updateContact(contactId, {
-    name,
-    email,
-    phone,
+  const result = await service.updateContact(contactId, {
+    $set: { name, email, phone },
   });
-  res.json(result);
+  if (!result) {
+    throw createHttpException(404, `Not found contact by id:${contactId}`);
+  }
+  return res.json(result);
 };
 
 module.exports = {
-    updateContact
-}
+  updateContact,
+};
