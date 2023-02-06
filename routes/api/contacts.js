@@ -1,9 +1,11 @@
 const express = require("express");
-const contactsController = require("../../controllers");
+const contactsController = require("../../controllers/contacts");
 const { controllerExceptionWrapper } = require("../../helpers");
 const { validateBody } = require("../../middlewares/validateBody.middleware");
 const { addContactsSchema } = require("../../service/schemas/addContactSchema");
-const { ContactsFavoriteSchema } = require("../../service/schemas/contactsFavoriteSchema.schema");
+const {
+  ContactsFavoriteSchema,
+} = require("../../service/schemas/contactsFavoriteSchema.schema");
 
 const router = express.Router();
 
