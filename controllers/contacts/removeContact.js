@@ -1,5 +1,5 @@
 const { createHttpException } = require("../../helpers");
-const service = require("../../service");
+const service = require("../../service/contactsService");
 
 const removeContact = async (req, res, next) => {
   const { contactId } = req.params;

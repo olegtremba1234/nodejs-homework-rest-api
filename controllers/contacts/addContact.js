@@ -1,5 +1,5 @@
 // const contactsRepository = require("../models/contacts");
-const service = require("../../service");
+const service = require("../../service/contactsService");
 
 const addContact = async (req, res, next) => {
   const { name, email, phone, favorite } = req.body;
