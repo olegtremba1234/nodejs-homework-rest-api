@@ -1,7 +1,8 @@
 const service = require("../../service/contactsService");
 
 const listContacts = async (req, res, next) => {
-  const contacts = await service.listContacts();
+  const { _id: owner } = req.user;
+  const contacts = await service.listContacts(owner);
   res.json(contacts);
 };
 

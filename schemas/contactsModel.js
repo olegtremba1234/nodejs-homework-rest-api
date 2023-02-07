@@ -9,6 +9,7 @@ const contact = new Schema(
     },
     email: {
       type: String,
+      unique: true,
     },
     phone: {
       type: String,
@@ -18,7 +19,7 @@ const contact = new Schema(
       default: false,
     },
     owner: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "users",
     },
   },

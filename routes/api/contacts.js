@@ -2,12 +2,16 @@ const express = require("express");
 const contactsController = require("../../controllers/contacts");
 const { controllerExceptionWrapper } = require("../../helpers");
 const { validateBody } = require("../../middlewares/validateBody.middleware");
-const { addContactsSchema } = require("../../service/schemas/addContactSchema");
+const { addContactsSchema } = require("../../schemas/joiContactSchema");
 const {
   ContactsFavoriteSchema,
-} = require("../../service/schemas/contactsFavoriteSchema.schema");
+} = require("../../schemas/contactsFavoriteSchema");
+
+const { authMiddleware } = require("../../middlewares/");
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get("/", controllerExceptionWrapper(contactsController.listContacts));
 
