@@ -10,7 +10,7 @@ const joiUsersSchema = Joi.object({
       "string.pattern.base": `Password must consists of at least 4 characters and not more than 15 characters.`,
     })
     .required(),
-  favorite: Joi.boolean,
+  subscription: Joi.string().valid("starter", "pro", "business"),
 });
 
 module.exports = {

@@ -3,6 +3,9 @@ const userController = require("../../controllers/users");
 const { controllerExceptionWrapper } = require("../../helpers");
 const { authMiddleware, validateBody } = require("../../middlewares/");
 const { joiUsersSchema } = require("../../schemas/joiUsersSchema");
+const {
+  userSubscriptionSchema,
+} = require("../../schemas/userSubscriptionSchema");
 
 const router = express.Router();
 
@@ -28,6 +31,12 @@ router.post(
 router.get(
   "/current",
   controllerExceptionWrapper(userController.currentUserController)
+);
+
+router.patch(
+  "/",
+  validateBody(userSubscriptionSchema),
+  controllerExceptionWrapper(userController.subscriptionController)
 );
 
 module.exports = router;
