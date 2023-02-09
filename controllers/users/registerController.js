@@ -1,9 +1,17 @@
-const { regitration } = require("../../service/userService");
+const User = require("../../models/usersModel");
+const { createHttpException } = require("../../helpers");
 
 const registerController = async (req, res) => {
   const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user) {
+    throw createHttpException(409, "Email in use");
+  }
 
-  await regitration(email, password);
+  const newUser = new User({ email, password });
+  newUser.setPassword(password);
+  await newUser.save();
+
   res.json({ status: "success" });
 };
 

@@ -20,8 +20,14 @@ router.post(
 
 router.use(authMiddleware);
 
-router.post("/logout");
+router.post(
+  "/logout",
+  controllerExceptionWrapper(userController.logOutController)
+);
 
-router.get("/current");
+router.get(
+  "/current",
+  controllerExceptionWrapper(userController.currentUserController)
+);
 
 module.exports = router;

@@ -9,6 +9,7 @@ const usersSchema = new Schema(
       type: String,
       required: [true, "Email is required"],
       unique: true,
+      index: true,
     },
     password: {
       type: String,
@@ -24,9 +25,9 @@ const usersSchema = new Schema(
   { versionKey: false }
 );
 
-usersSchema.methods.setPassword = function(password) {
-    this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(6));
-  };
+usersSchema.methods.setPassword = function (password) {
+  this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(6));
+};
 
 const User = mongoose.model("users", usersSchema);
 
