@@ -10,7 +10,9 @@ const loginController = async (req, res) => {
     throw createHttpException(401, "Email or password is wrong");
   }
 
-  const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
+  const SECRET = secret-word
+  
+  const token = jwt.sign({ _id: user._id }, SECRET, {
     expiresIn: "1h",
   });
 
