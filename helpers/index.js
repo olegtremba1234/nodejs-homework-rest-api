@@ -1,7 +1,11 @@
 const { controllerExceptionWrapper } = require("./controllerExceptionWrapper");
-const { createHttpException } = require("./createHttpException");
+const {
+  createHttpException,
+  NotAuthorizedError,
+} = require("./createHttpException");
 
 module.exports = {
   createHttpException,
   controllerExceptionWrapper,
+  NotAuthorizedError,
 };

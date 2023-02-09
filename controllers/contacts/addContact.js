@@ -1,9 +1,13 @@
 // const contactsRepository = require("../models/contacts");
-const service = require("../service");
+const service = require("../../service/contactsService");
 
 const addContact = async (req, res, next) => {
   const { name, email, phone, favorite } = req.body;
-  const result = await service.addContact({ name, email, phone, favorite });
+  const { _id: owner } = req.user;
+  const result = await service.addContact(
+    { name, email, phone, favorite },
+    owner
+  );
   res.status(201).json(result);
 };
 
