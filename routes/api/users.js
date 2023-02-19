@@ -1,7 +1,12 @@
 const express = require("express");
 const userController = require("../../controllers/users");
 const { controllerExceptionWrapper } = require("../../helpers");
-const { authMiddleware, validateBody } = require("../../middlewares/");
+const {
+  authMiddleware,
+  validateBody,
+  uploadMiddleWare,
+} = require("../../middlewares/");
+const avatarsController = require("../../controllers/avatars");
 const { joiUsersSchema } = require("../../schemas/joiUsersSchema");
 const {
   userSubscriptionSchema,
@@ -37,6 +42,12 @@ router.patch(
   "/",
   validateBody(userSubscriptionSchema),
   controllerExceptionWrapper(userController.subscriptionController)
+);
+
+router.patch(
+  "/avatars",
+  uploadMiddleWare.single("avatar"),
+  controllerExceptionWrapper(avatarsController.avatarsController)
 );
 
 module.exports = router;
