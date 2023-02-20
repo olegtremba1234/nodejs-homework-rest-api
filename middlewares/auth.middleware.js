@@ -8,10 +8,8 @@ const authMiddleware = async (req, res, next) => {
     if (!token || tokenType !== "Bearer") {
       next(new NotAuthorizedError("Not authorized"));
     }
-    
-    const SECRET = "secret-word"
-    
-    const decodedToken = jwt.decode(token, SECRET);
+
+    const decodedToken = jwt.decode(token, process.env.SECRET);
 
     const user = await User.findById(decodedToken._id);
     if (!user || !user.token) {
