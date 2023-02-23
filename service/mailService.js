@@ -5,7 +5,6 @@ sgMail.setApiKey(SENDGRID_API_KEY);
 
 const sendEmailVerificationLetter = async (email, verificationToken) => {
   const msg = {
-    // eslint-disable-next-line no-undef
     to: email,
     from: MAIL_SENDER_EMAIL,
     subject: "Verify your email",
