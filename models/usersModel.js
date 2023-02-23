@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
+const { nanoid } = require("nanoid");
 
 const Schema = mongoose.Schema;
 
@@ -15,6 +16,14 @@ const usersSchema = new Schema(
     password: {
       type: String,
       required: [true, "Set password for user"],
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
     },
     subscription: {
       type: String,
@@ -33,6 +42,10 @@ usersSchema.methods.setPassword = function (password) {
 
 usersSchema.methods.setAvatar = function (email) {
   this.avatarURL = gravatar.url(email, { s: "250", r: "x", d: "retro" }, true);
+};
+
+usersSchema.methods.setVerificationToken = function () {
+  this.verificationToken = nanoid();
 };
 
 const User = mongoose.model("users", usersSchema);
