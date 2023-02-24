@@ -7,10 +7,11 @@ const {
   uploadMiddleWare,
 } = require("../../middlewares/");
 const avatarsController = require("../../controllers/avatars");
-const { joiUsersSchema } = require("../../schemas/joiUsersSchema");
 const {
+  joiUsersSchema,
   userSubscriptionSchema,
-} = require("../../schemas/userSubscriptionSchema");
+  emailVerificationSchema,
+} = require("../../schemas/");
 
 const router = express.Router();
 
@@ -18,6 +19,17 @@ router.post(
   "/register",
   validateBody(joiUsersSchema),
   controllerExceptionWrapper(userController.registerController)
+);
+
+router.get(
+  "/verify/:verificationToken",
+  controllerExceptionWrapper(userController.verifyEmail)
+);
+
+router.post(
+  "/verify",
+  validateBody(emailVerificationSchema),
+  controllerExceptionWrapper(userController.resendVerifyEmail)
 );
 
 router.post(
